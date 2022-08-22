@@ -24,13 +24,18 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "customer_id")
     private Long customerId;
+    @Column(name = "id_string")
     private String idString;
+    @Column(name = "customer_name")
     private String customerName;
+    @Column(name = "customer_balance")
     private BigDecimal customerBalance;
+    @Column(name = "creation_time")
     private LocalDateTime creationTime;
+    @Column(name = "date_of_birth")
     private LocalDate dob;
-
 
     @PrePersist
     protected void onCreate() {
