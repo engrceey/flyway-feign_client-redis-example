@@ -1,15 +1,17 @@
 package com.zurum.flywayredisfeignclientexample.dto.request;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@Builder
-public class CustomerRequest {
+@AllArgsConstructor
+@NoArgsConstructor
+public class CreateCustomerRequest {
 
     private String customerName;
     private BigDecimal customerBalance;
