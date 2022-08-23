@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateCustomerRequest {
+
     private String customerName;
     private LocalDate dob;
 }
