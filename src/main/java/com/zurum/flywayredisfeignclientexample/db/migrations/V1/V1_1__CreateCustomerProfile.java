@@ -1,4 +1,4 @@
-package com.zurum.flywayredisfeignclientexample.migrations.V1;
+package com.zurum.flywayredisfeignclientexample.db.migrations.V1;
 
 import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
