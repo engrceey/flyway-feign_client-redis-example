@@ -30,6 +30,8 @@ public class Customer {
     private String idString;
     @Column(name = "customer_name")
     private String customerName;
+    @Column(unique = true)
+    private String email;
     @Column(name = "customer_balance")
     private BigDecimal customerBalance;
     @Column(name = "creation_time")
@@ -50,14 +52,16 @@ public class Customer {
     public boolean equals(Object o) {
         if (this == o) return true;
 
-        if (!(o instanceof Customer customer)) return false;
+        if (!(o instanceof Customer)) return false;
 
-        return new EqualsBuilder().append(getCustomerId(), customer.getCustomerId()).append(getIdString(), customer.getIdString()).append(getCustomerName(), customer.getCustomerName()).append(getCustomerBalance(), customer.getCustomerBalance()).append(getCreationTime(), customer.getCreationTime()).append(getDob(), customer.getDob()).isEquals();
+        Customer customer = (Customer) o;
+
+        return new EqualsBuilder().append(getCustomerId(), customer.getCustomerId()).append(getIdString(), customer.getIdString()).append(getCustomerName(), customer.getCustomerName()).append(getEmail(), customer.getEmail()).append(getCustomerBalance(), customer.getCustomerBalance()).append(getCreationTime(), customer.getCreationTime()).append(getDob(), customer.getDob()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(getCustomerId()).append(getIdString()).append(getCustomerName()).append(getCustomerBalance()).append(getCreationTime()).append(getDob()).toHashCode();
+        return new HashCodeBuilder(17, 37).append(getCustomerId()).append(getIdString()).append(getCustomerName()).append(getEmail()).append(getCustomerBalance()).append(getCreationTime()).append(getDob()).toHashCode();
     }
 
     @Override
@@ -66,6 +70,7 @@ public class Customer {
                 .append("customerId", customerId)
                 .append("idString", idString)
                 .append("customerName", customerName)
+                .append("email", email)
                 .append("customerBalance", customerBalance)
                 .append("creationTime", creationTime)
                 .append("dob", dob)

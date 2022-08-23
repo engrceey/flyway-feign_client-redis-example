@@ -18,22 +18,25 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     @Override
-    public String registerCustomer(CreateCustomerRequest customerRequest) {
+    public String registerCustomer(final CreateCustomerRequest customerRequest) {
 
-//        if(isCustomerAvailable())
-        return null;
+        if (customerRepository.findCustomerByEmail(customerRequest.getEmail()).isPresent())
+                throw new RuntimeException("Already exist, login");
+
+        customerRepository.save(ModelMapperUtils.map(customerRequest, new Customer()));
+        return "saved";
     }
 
     @Override
     public GetCustomerResponse getCustomerById(String id) {
-        return ModelMapperUtils.map(customerRepository.findByIdString(id).orElseThrow(() -> {
+        return ModelMapperUtils.map(customerRepository.findCustomerByIdString(id).orElseThrow(() -> {
            throw new RuntimeException("Not found");
         }), GetCustomerResponse.class);
     }
 
     @Override
     public String updateCustomer(String id, UpdateCustomerRequest updateCustomerRequest) {
-        Customer customer = customerRepository.findByIdString(id).orElseThrow(() -> {
+        Customer customer = customerRepository.findCustomerByIdString(id).orElseThrow(() -> {
             throw new RuntimeException("Not found");
         });
 
@@ -44,13 +47,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String deleteCustomer(final String id) {
         if (isCustomerAvailable(id)) {
-            customerRepository.deleteById(customerRepository.findByIdString(id).get().getCustomerId());
+            customerRepository.deleteById(customerRepository.findCustomerByIdString(id).get().getCustomerId());
         }
         throw new RuntimeException("Not found");
     }
 
     private boolean isCustomerAvailable(String id) {
-        return customerRepository.findByIdString(id).isPresent();
-
+        return customerRepository.findCustomerByIdString(id).isPresent();
     }
 }

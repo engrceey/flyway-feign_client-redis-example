@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 public class GetCustomerResponse {
     private String customerName;
+    private String email;
     private BigDecimal customerBalance;
     private LocalDateTime creationTime;
     private LocalDate dob;
