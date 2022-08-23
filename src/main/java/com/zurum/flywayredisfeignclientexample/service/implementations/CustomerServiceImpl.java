@@ -23,8 +23,9 @@ public class CustomerServiceImpl implements CustomerService {
         if (customerRepository.findCustomerByEmail(customerRequest.getEmail()).isPresent())
                 throw new RuntimeException("Already exist, login");
 
-        customerRepository.save(ModelMapperUtils.map(customerRequest, new Customer()));
-        return "saved";
+        customerRepository.saveAndFlush(ModelMapperUtils.map(customerRequest, new Customer()));
+        return String.format("customer registered with id:: %s",
+                customerRepository.findCustomerByEmail(customerRequest.getEmail()).get().getIdString());
     }
 
     @Override
@@ -41,13 +42,14 @@ public class CustomerServiceImpl implements CustomerService {
         });
 
         ModelMapperUtils.map(updateCustomerRequest, customer);
-        return "yes";
+        return "successfully updated";
     }
 
     @Override
     public String deleteCustomer(final String id) {
         if (isCustomerAvailable(id)) {
             customerRepository.deleteById(customerRepository.findCustomerByIdString(id).get().getCustomerId());
+            return String.format("customer with customerId:: %s deleted",id);
         }
         throw new RuntimeException("Not found");
     }

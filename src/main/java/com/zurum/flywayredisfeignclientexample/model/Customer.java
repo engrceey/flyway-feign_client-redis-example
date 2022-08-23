@@ -17,7 +17,7 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "customer")
+@Table(name = "customer_profile")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
@@ -36,6 +36,7 @@ public class Customer {
     private BigDecimal customerBalance;
     @Column(name = "creation_time")
     private LocalDateTime creationTime;
+
     @Column(name = "date_of_birth")
     private LocalDate dob;
 
@@ -46,6 +47,9 @@ public class Customer {
 
         if (StringUtils.isBlank(this.idString))
             this.idString = RandomStringUtils.randomAlphabetic(10).toUpperCase();
+
+        if (Objects.isNull(customerBalance))
+            this.customerBalance = BigDecimal.valueOf(0.0);
     }
 
     @Override

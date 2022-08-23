@@ -11,11 +11,10 @@ import java.sql.Statement;
 
 @Log4j2
 public class FlywayAfterMigrationCallback extends BaseCallback {
-
     @Override
     public void handle(Event event, Context context) {
-        if (event == Event.AFTER_MIGRATE) {
-            log.info("afterMigrate");
+        if (event.equals(Event.AFTER_MIGRATE)) {
+            log.info("** afterMigrate **");
             Statement st;
             try {
                 st = context.getConnection().createStatement();
@@ -26,7 +25,7 @@ public class FlywayAfterMigrationCallback extends BaseCallback {
                             "INSERT INTO customer_profile ( customer_name, email, customer_balance) VALUES ( 'precious', 'blacc@gmail.com', 1200.0, '1994-04-04' );");
                     st.execute(
                             "INSERT INTO customer_profile ( customer_name, email, customer_balance) VALUES ( 'zurum', 'ceey@gmail.com', 5000.0, '1997-07-07' );");
-                    log.info("Database populated ");
+                    log.info("** Database populated **");
                 } else {
                     log.info("Database contains customers already");
                 }
