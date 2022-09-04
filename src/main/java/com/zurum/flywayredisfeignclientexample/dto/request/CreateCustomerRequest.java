@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCustomerRequest {
+public class CreateCustomerRequest implements Serializable {
     @NotBlank(message = "customer name cannot be blank")
     private String customerName;
 
