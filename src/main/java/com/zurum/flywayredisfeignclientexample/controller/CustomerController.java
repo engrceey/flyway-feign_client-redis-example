@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -33,11 +32,8 @@ public class CustomerController {
     }
 
     @GetMapping(path = "/customer/{customerId}")
-    public ResponseEntity<ApiResponse<?>> getCustomerByCustomerId(@PathVariable("customerId") final String customerId,
-                                                                  HttpSession httpSession) {
+    public ResponseEntity<ApiResponse<?>> getCustomerByCustomerId(@PathVariable("customerId") final String customerId) {
         log.info("fetch customer: By ID:: [{}] ::", customerId);
-        String session = (String) httpSession.getAttribute("user");
-        log.info("SESSION >> [{}]", session);
         GetCustomerResponse response = customerService.getCustomerById(customerId);
         return ResponseEntity.ok().body(ApiResponse.buildSuccess(response));
     }
